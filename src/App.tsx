@@ -30,7 +30,7 @@ export const App = () => {
     setLoading(true);
     setErrorMessage(null);
 
-    fetch(`http://www.omdbapi.com/?y=${searchValue}&apikey=${APIKEY}`)
+    fetch(`http://www.omdbapi.com/?s=${searchValue}&apikey=${APIKEY}`)
       .then((jsonResponse) => jsonResponse.json())
       .then((jsonResponse) => {
         if (jsonResponse.Response === "True") {
