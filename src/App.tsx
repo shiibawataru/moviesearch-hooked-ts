@@ -46,7 +46,9 @@ export const App = () => {
 
   return (
     <div>
-      <Header text="Movie Search" />
+      <div className="has-text-centered">
+        <Header text="Movie Search" />
+      </div>
       <p className="columns is-centered is-size-4 m-1 has-text-primary">
         Sharing a few of our favorite movies.
       </p>
