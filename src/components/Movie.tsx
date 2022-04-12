@@ -9,7 +9,7 @@ export const Movie: React.FC<{ movie: MovieObj }> = ({ movie }) => {
     movie.Poster === "N/A" ? DEFAULT_PLACEHOLDER_IMAGE : movie.Poster;
 
   return (
-    <div className="card m-3 column is-2">
+    <div className="card m-3 column is-2 is-8-mobile">
       <div className="column is-centered">
         <img
           width="200"
@@ -18,7 +18,7 @@ export const Movie: React.FC<{ movie: MovieObj }> = ({ movie }) => {
           className="card-image"
         />
       </div>
-      <h2 className="title is-4 ">{movie.Title}</h2>
+      <h2 className="title is-4">{movie.Title}</h2>
       <p>{movie.Year}</p>
     </div>
   );
