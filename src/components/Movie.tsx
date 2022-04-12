@@ -10,7 +10,7 @@ export const Movie: React.FC<{ movie: MovieObj }> = ({ movie }) => {
 
   return (
     <div className="card m-3 column is-2">
-      <div className=" column is-centered">
+      <div className="column is-centered">
         <img
           width="200"
           alt={`The movie titled: ${movie.Title}`}
