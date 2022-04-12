@@ -9,8 +9,7 @@ export type MovieObj = {
   Poster: string;
 };
 
-const APIKEY = process.env.REACT_APP_OMDb_API_KEY;
-const MOVIE_API_URL = `http://www.omdbapi.com/?s=man&apikey=${APIKEY}`;
+const MOVIE_API_URL = `http://www.omdbapi.com/?s=man&apikey=${process.env.REACT_APP_OMDb_API_KEY}`;
 
 export const App = () => {
   const [loading, setLoading] = useState(true);
