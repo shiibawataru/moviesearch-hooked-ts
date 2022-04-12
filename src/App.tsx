@@ -9,8 +9,7 @@ export type MovieObj = {
   Poster: string;
 };
 
-const APIKEY = process.env.REACT_APP_OMDb_API_KEY;
-const MOVIE_API_URL = `http://www.omdbapi.com/?s=man&apikey=${APIKEY}`;
+const MOVIE_API_URL = `http://www.omdbapi.com/?s=man&apikey=${process.env.REACT_APP_OMDb_API_KEY}`;
 
 export const App = () => {
   const [loading, setLoading] = useState(true);
@@ -30,7 +29,9 @@ export const App = () => {
     setLoading(true);
     setErrorMessage(null);
 
-    fetch(`http://www.omdbapi.com/?s=${searchValue}&apikey=${APIKEY}`)
+    fetch(
+      `http://www.omdbapi.com/?s=${searchValue}&apikey=${process.env.REACT_APP_OMDb_API_KEY}`
+    )
       .then((jsonResponse) => jsonResponse.json())
       .then((jsonResponse) => {
         if (jsonResponse.Response === "True") {
