@@ -1,26 +1,71 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import { Header } from "./components/Header";
+import { Movie } from "./components/Movie";
+import { Search } from "./components/Search";
 
-function App() {
+export type MovieObj = {
+  Title: string;
+  Year: string;
+  Poster: string;
+};
+
+const APIKEY = process.env.REACT_APP_OMDb_API_KEY;
+const MOVIE_API_URL = `http://www.omdbapi.com/?s=man&apikey=${APIKEY}`;
+
+export const App = () => {
+  const [loading, setLoading] = useState(true);
+  const [movies, setMovies] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  useEffect(() => {
+    fetch(MOVIE_API_URL)
+      .then((Response) => Response.json())
+      .then((jsonResponse) => {
+        setMovies(jsonResponse.Search);
+        setLoading(false);
+      });
+  }, []);
+
+  const search = (searchValue: string) => {
+    setLoading(true);
+    setErrorMessage(null);
+
+    fetch(`http://www.omdbapi.com/?s=${searchValue}&apikey=${APIKEY}`)
+      .then((jsonResponse) => jsonResponse.json())
+      .then((jsonResponse) => {
+        if (jsonResponse.Response === "True") {
+          setMovies(jsonResponse.Search);
+          setLoading(false);
+        } else {
+          setErrorMessage(jsonResponse.Error);
+          setLoading(false);
+        }
+      });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header text="Movie Search" />
+      <p className="columns is-centered is-size-4 m-1 has-text-primary">
+        Sharing a few of our favorite movies.
+      </p>
+      <Search search={search} />
+      <div className="is-flex is-flex-wrap-wrap columns is-centered ">
+        {loading && !errorMessage ? (
+          <div>
+            <span className="is-size-2">loading...</span>
+            <progress className="progress is-large is-primary" max="100">
+              15%
+            </progress>
+          </div>
+        ) : errorMessage ? (
+          <div className="is-size-2 has-text-danger">{errorMessage}</div>
+        ) : (
+          movies.map((movie: MovieObj, index) => (
+            <Movie key={`${index}-${movie.Title}`} movie={movie} />
+          ))
+        )}
+      </div>
     </div>
   );
-}
-
-export default App;
+};
