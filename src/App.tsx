@@ -29,7 +29,9 @@ export const App = () => {
     setLoading(true);
     setErrorMessage(null);
 
-    fetch(`http://www.omdbapi.com/?s=${searchValue}&apikey=${APIKEY}`)
+    fetch(
+      `http://www.omdbapi.com/?s=${searchValue}&apikey=${process.env.REACT_APP_OMDb_API_KEY}`
+    )
       .then((jsonResponse) => jsonResponse.json())
       .then((jsonResponse) => {
         if (jsonResponse.Response === "True") {
